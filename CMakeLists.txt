@@ -1,0 +1,141 @@
+cmake_minimum_required(VERSION 3.13)
+project(bedops)
+
+set(CMAKE_CXX_STANDARD 14)
+
+include_directories(applications/bed/bedmap/src)
+include_directories(applications/bed/bedops/src)
+include_directories(applications/bed/closestfeats/src)
+include_directories(applications/bed/conversion/src)
+include_directories(applications/bed/sort-bed/src)
+include_directories(applications/bed/starch/src)
+include_directories(interfaces/general-headers)
+include_directories(interfaces/general-headers/algorithm)
+include_directories(interfaces/general-headers/algorithm/bed)
+include_directories(interfaces/general-headers/algorithm/visitors)
+include_directories(interfaces/general-headers/algorithm/visitors/bed)
+include_directories(interfaces/general-headers/algorithm/visitors/helpers)
+include_directories(interfaces/general-headers/algorithm/visitors/numerical)
+include_directories(interfaces/general-headers/algorithm/visitors/other)
+include_directories(interfaces/general-headers/data)
+include_directories(interfaces/general-headers/data/bed)
+include_directories(interfaces/general-headers/data/measurement)
+include_directories(interfaces/general-headers/data/starch)
+include_directories(interfaces/general-headers/suite)
+include_directories(interfaces/general-headers/utility)
+
+add_executable(bedops
+        applications/bed/bedextract/src/ExtractRows.cpp
+        applications/bed/bedmap/src/Bedmap.cpp
+        applications/bed/bedmap/src/Input.hpp
+        applications/bed/bedmap/src/TDefs.hpp
+        applications/bed/bedops/src/Bedops.cpp
+        applications/bed/bedops/src/BedPadReader.hpp
+        applications/bed/bedops/src/Input.hpp
+        applications/bed/closestfeats/src/BedReader.hpp
+        applications/bed/closestfeats/src/ClosestFeature.cpp
+        applications/bed/closestfeats/src/Input.hpp
+        applications/bed/closestfeats/src/Printers.hpp
+        applications/bed/conversion/src/convert2bed.c
+        applications/bed/conversion/src/convert2bed.h
+        applications/bed/conversion/src/gprof-helper.c
+        applications/bed/sort-bed/src/CheckSort.cpp
+        applications/bed/sort-bed/src/Sort.cpp
+        applications/bed/sort-bed/src/SortDetails.cpp
+        applications/bed/sort-bed/src/Structures.hpp
+        applications/bed/starch/src/starch.c
+        applications/bed/starch/src/starch.h
+        applications/bed/starch/src/starchcat.c
+        applications/bed/starch/src/starchcat.h
+        applications/bed/starch/src/starchstrip.c
+        applications/bed/starch/src/starchstrip.h
+        applications/bed/starch/src/unstarch.c
+        applications/bed/starch/src/unstarch.h
+        interfaces/general-headers/algorithm/bed/FindBedRange.hpp
+        interfaces/general-headers/algorithm/visitors/bed/BedBaseVisitor.hpp
+        interfaces/general-headers/algorithm/visitors/bed/EchoMapBedVisitor.hpp
+        interfaces/general-headers/algorithm/visitors/bed/EchoMapIntersectLengthVisitor.hpp
+        interfaces/general-headers/algorithm/visitors/bed/OvrAggregateVisitor.hpp
+        interfaces/general-headers/algorithm/visitors/bed/OvrUniqueFractionVisitor.hpp
+        interfaces/general-headers/algorithm/visitors/bed/OvrUniqueVisitor.hpp
+        interfaces/general-headers/algorithm/visitors/bed/WeightedAverageVisitor.hpp
+        interfaces/general-headers/algorithm/visitors/helpers/NamedVisitors.hpp
+        interfaces/general-headers/algorithm/visitors/helpers/ProcessBedVisitorRow.hpp
+        interfaces/general-headers/algorithm/visitors/helpers/ProcessVisitorRow.hpp
+        interfaces/general-headers/algorithm/visitors/numerical/AverageVisitor.hpp
+        interfaces/general-headers/algorithm/visitors/numerical/CoeffVariationVisitor.hpp
+        interfaces/general-headers/algorithm/visitors/numerical/CountVisitor.hpp
+        interfaces/general-headers/algorithm/visitors/numerical/ExtremeVisitor.hpp
+        interfaces/general-headers/algorithm/visitors/numerical/IndicatorVisitor.hpp
+        interfaces/general-headers/algorithm/visitors/numerical/MedianAbsoluteDeviationVisitor.hpp
+        interfaces/general-headers/algorithm/visitors/numerical/MedianVisitor.hpp
+        interfaces/general-headers/algorithm/visitors/numerical/RollingKthAverageVisitor.hpp
+        interfaces/general-headers/algorithm/visitors/numerical/RollingKthVisitor.hpp
+        interfaces/general-headers/algorithm/visitors/numerical/StdevVisitor.hpp
+        interfaces/general-headers/algorithm/visitors/numerical/SumVisitor.hpp
+        interfaces/general-headers/algorithm/visitors/numerical/TrimmedMeanVisitor.hpp
+        interfaces/general-headers/algorithm/visitors/numerical/VarianceVisitor.hpp
+        interfaces/general-headers/algorithm/visitors/other/EchoVisitor.hpp
+        interfaces/general-headers/algorithm/visitors/other/MultiVisitor.hpp
+        interfaces/general-headers/algorithm/visitors/BedVisitors.hpp
+        interfaces/general-headers/algorithm/visitors/NumericalVisitors.hpp
+        interfaces/general-headers/algorithm/visitors/OtherVisitors.hpp
+        interfaces/general-headers/algorithm/visitors/VisitorFactory.hpp
+        interfaces/general-headers/algorithm/visitors/Visitors.hpp
+        interfaces/general-headers/algorithm/WindowSweep.hpp
+        interfaces/general-headers/data/bed/AllocateIterator_BED_starch.hpp
+        interfaces/general-headers/data/bed/AllocateIterator_BED_starch_minmem.hpp
+        interfaces/general-headers/data/bed/Bed.hpp
+        interfaces/general-headers/data/bed/Bed_minmem.hpp
+        interfaces/general-headers/data/bed/BedCheckIterator.hpp
+        interfaces/general-headers/data/bed/BedCheckIterator_minmem.hpp
+        interfaces/general-headers/data/bed/BedCompare.hpp
+        interfaces/general-headers/data/bed/BedDistances.hpp
+        interfaces/general-headers/data/bed/BedTypes.hpp
+        interfaces/general-headers/data/measurement/NaN.hpp
+        interfaces/general-headers/data/measurement/SelectMeasureType.hpp
+        interfaces/general-headers/data/starch/starchApi.hpp
+        interfaces/general-headers/data/starch/starchBase64Coding.h
+        interfaces/general-headers/data/starch/starchConstants.h
+        interfaces/general-headers/data/starch/starchFileHelpers.h
+        interfaces/general-headers/data/starch/starchHelpers.h
+        interfaces/general-headers/data/starch/starchMetadataHelpers.h
+        interfaces/general-headers/data/starch/starchSha1Digest.h
+        interfaces/general-headers/data/starch/unstarchHelpers.h
+        interfaces/general-headers/suite/BEDOPS.Constants.hpp
+        interfaces/general-headers/suite/BEDOPS.Version.hpp
+        interfaces/general-headers/utility/AllocateIterator.hpp
+        interfaces/general-headers/utility/Assertion.hpp
+        interfaces/general-headers/utility/BitMonitor.hpp
+        interfaces/general-headers/utility/ByLine.hpp
+        interfaces/general-headers/utility/CharPooledMemory.hpp
+        interfaces/general-headers/utility/CompilerMath.hpp
+        interfaces/general-headers/utility/Exception.hpp
+        interfaces/general-headers/utility/Factory.hpp
+        interfaces/general-headers/utility/Formats.hpp
+        interfaces/general-headers/utility/FPWrap.hpp
+        interfaces/general-headers/utility/IteratorPair.hpp
+        interfaces/general-headers/utility/OrderCompare.hpp
+        interfaces/general-headers/utility/PooledMemory.hpp
+        interfaces/general-headers/utility/PrintTypes.hpp
+        interfaces/general-headers/utility/SingletonType.hpp
+        interfaces/general-headers/utility/Typify.hpp
+        interfaces/src/algorithm/sweep/WindowSweepImpl.cpp
+        interfaces/src/algorithm/sweep/WindowSweepImpl.specialize.cpp
+        interfaces/src/data/measurement/NaN.cpp
+        interfaces/src/data/starch/starchBase64Coding.c
+        interfaces/src/data/starch/starchConstants.c
+        interfaces/src/data/starch/starchFileHelpers.c
+        interfaces/src/data/starch/starchHelpers.c
+        interfaces/src/data/starch/starchMetadataHelpers.c
+        interfaces/src/data/starch/starchSha1Digest.c
+        interfaces/src/data/starch/unstarchHelpers.c
+        interfaces/src/utility/SingletonType.cpp
+        packaging/deb/Dockerfile
+        packaging/docker/Dockerfile
+        packaging/rpm/bedops.spec
+        packaging/rpm/Dockerfile
+        system.mk/Makefile.darwin
+        system.mk/Makefile.linux
+        Makefile
+        README.md)

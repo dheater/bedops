@@ -58,6 +58,12 @@ tramp
 *.x86_64
 *.hex
 
+# IDE stuff
+*~
+tags
+.idea
+cmake-build-debug
+
 # OS X stuff
 .DS_Store
 __MACOSX
